@@ -1,18 +1,22 @@
 from preprocessing import num_encoder_tokens, num_decoder_tokens, decoder_target_data, encoder_input_data, decoder_input_data, decoder_target_data, max_encoder_seq_length, max_decoder_seq_length
-
+import tensorflow
 from tensorflow import keras
 # Add Dense to the imported layers
 from keras.layers import Input, LSTM, Dense, Masking
 from keras.models import Model
 import os
-# os.environ['KMP_DUPLICATE_LIB_OK']='True'
-
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
+config = ConfigProto()
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
 # Choose dimensionality
 dimensionality = 256
 
 # Choose the batch size
 # and number of epochs:
-batch_size = 10
+batch_size = 200
 epochs = 600
 
 # Encoder training setup
@@ -37,6 +41,6 @@ training_model.compile(optimizer='rmsprop', loss='categorical_crossentropy', met
 
 # print("Training the model:\n")
 # Train the model:
-training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
+training_model.fit((encoder_input_data, decoder_input_data), decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
 
 training_model.save('training_model.h5')

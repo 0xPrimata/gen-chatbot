@@ -11,7 +11,7 @@ target_docs = []
 input_tokens = set()
 target_tokens = set()
 
-for line in pairs[:15]:
+for line in pairs[:-1]:
   # Input and target sentences are separated by tabs
   input_doc, target_doc = line[0], line[1]
   # Appending each input sentence to input_docs

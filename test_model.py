@@ -62,3 +62,5 @@ def decode_sequence(test_input):
     states_value = [hidden_state, cell_state]
 
   return decoded_sentence
+
+
